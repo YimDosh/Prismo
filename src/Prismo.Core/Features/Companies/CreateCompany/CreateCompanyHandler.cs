@@ -4,7 +4,7 @@ using Prismo.Core.Infrastructure.Persistence;
 
 namespace Prismo.Core.Features.Companies.CreateCompany;
 
-// 🚀 Usando Primary Constructor de C# moderno
+// Usando Primary Constructor de C# moderno
 public class CreateCompanyHandler(PrismoDbContext context) 
     : IRequestHandler<CreateCompanyCommand, CreateCompanyResponse>
 {
