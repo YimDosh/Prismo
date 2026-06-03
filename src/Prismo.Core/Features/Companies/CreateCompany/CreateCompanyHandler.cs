@@ -1,6 +1,8 @@
+using Microsoft.EntityFrameworkCore;
 using MediatR;
 using Prismo.Core.Features.Companies.Domain;
 using Prismo.Core.Infrastructure.Persistence;
+using FluentValidation;
 
 namespace Prismo.Core.Features.Companies.CreateCompany;
 
@@ -13,6 +15,19 @@ public class CreateCompanyHandler(PrismoDbContext context)
         CancellationToken cancellationToken
     )
     {
+        var nitExist = await context.Companies
+            .AnyAsync(n => n.Nit == request.Nit, cancellationToken);
+
+        if (nitExist)
+        {
+            //  Creamos un fallo estructurado asignado a la propiedad "Nit"
+            var failure = new FluentValidation.Results.ValidationFailure(
+                nameof(request.Nit), 
+                $"The NIT '{request.Nit}' is already registered."
+            );
+
+            throw new ValidationException([failure]);
+        }
         // 1. Instanciamos el Dominio usando tu Factory Method semántico
         var company = Company.Create(request.Name, request.Nit);
 
