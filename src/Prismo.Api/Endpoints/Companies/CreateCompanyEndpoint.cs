@@ -1,7 +1,7 @@
 using MediatR;
 using Prismo.Core.Features.Companies.CreateCompany;
 
-namespace Prismo.Api.Endpoints;
+namespace Prismo.Api.Endpoints.Companies;
 
 public static class CreateCompanyEndpoint
 {

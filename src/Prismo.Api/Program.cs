@@ -1,4 +1,5 @@
-using Prismo.Api.Endpoints;
+using Prismo.Api.Endpoints.Companies;
+using Prismo.Api.Middleware;
 using Scalar.AspNetCore;
 using Prismo.Core.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,8 @@ using Prismo.Core.Infrastructure.Common.Behaviors;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -20,11 +23,11 @@ builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(Prismo.Core.Features.Companies.UpdateCompany.UpdateCompanyHandler).Assembly);
     
-    // 🔥 ESTA LÍNEA AGREGA EL VALIDADOR AL PIPELINE DE MEDIATR
+    //  ESTA LÍNEA AGREGA EL VALIDADOR AL PIPELINE DE MEDIATR
     cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
 });
 
-// 🔥 ESTA LÍNEA REGISTRA TODOS LOS VALIDATORS (Como CreateCompanyValidator) DEL CORE
+// ESTA LÍNEA REGISTRA TODOS LOS VALIDATORS (Como CreateCompanyValidator) DEL CORE
 builder.Services.AddValidatorsFromAssembly(typeof(Prismo.Core.Features.Companies.CreateCompany.CreateCompanyValidator).Assembly);
 
 var app = builder.Build();
@@ -33,9 +36,12 @@ var app = builder.Build();
 
 app.MapOpenApi();
 app.MapScalarApiReference();
+app.UseStatusCodePages(); // Formatea errores automáticos de .NET
+app.UseExceptionHandler();
 
 app.UseHttpsRedirection();
 app.MapCreateCompany();
+app.MapGetCompanyById();
 app.Run();
 
 
