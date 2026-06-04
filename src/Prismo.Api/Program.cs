@@ -33,7 +33,6 @@ builder.Services.AddValidatorsFromAssembly(typeof(Prismo.Core.Features.Companies
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-
 app.MapOpenApi();
 app.MapScalarApiReference();
 app.UseStatusCodePages(); // Formatea errores automáticos de .NET
@@ -42,6 +41,7 @@ app.UseExceptionHandler();
 app.UseHttpsRedirection();
 app.MapCreateCompany();
 app.MapGetCompanyById();
+app.MapGetCompanies();
 app.Run();
 
 

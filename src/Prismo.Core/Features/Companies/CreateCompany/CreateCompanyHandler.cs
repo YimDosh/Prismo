@@ -23,7 +23,7 @@ public class CreateCompanyHandler(PrismoDbContext context)
             //  Creamos un fallo estructurado asignado a la propiedad "Nit"
             var failure = new FluentValidation.Results.ValidationFailure(
                 nameof(request.Nit), 
-                $"The NIT '{request.Nit}' is already registered."
+                $"The Nit '{request.Nit}' is already registered."
             );
 
             throw new ValidationException([failure]);

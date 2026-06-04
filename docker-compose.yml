@@ -1,7 +1,5 @@
 services:
-
   prismo-db:
-    
     image: postgres:18-alpine
     container_name: prismo-postgres
     restart: unless-stopped
