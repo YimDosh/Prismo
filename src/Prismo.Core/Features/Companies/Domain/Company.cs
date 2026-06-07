@@ -5,13 +5,13 @@ public class Company
     public Guid Id { get; private set; }
     public string Name { get; private set; } = null!;
     public string Nit { get; private set; } = null!;
-
     public bool IsActive { get; private set; } = true;
     public DateTime CreatedAt { get; private set; }
 
-
+    // Private consstructor for EF core
     private Company(){}
 
+    // Construcctor with Factory pattern
     public static Company Create(string name, string nit)
     { 
         return new Company
@@ -21,7 +21,6 @@ public class Company
             Nit = nit,
             CreatedAt = DateTime.UtcNow
         };
-        
     }
     public void Deactivate() => IsActive = false;
     public void Activate() => IsActive = true;

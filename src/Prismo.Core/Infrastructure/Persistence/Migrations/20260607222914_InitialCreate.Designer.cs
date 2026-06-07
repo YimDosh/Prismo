@@ -12,7 +12,7 @@ using Prismo.Core.Infrastructure.Persistence;
 namespace Prismo.Core.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(PrismoDbContext))]
-    [Migration("20260602221504_InitialCreate")]
+    [Migration("20260607222914_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -39,15 +39,49 @@ namespace Prismo.Core.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Nit")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Companies");
+                    b.HasIndex("Nit")
+                        .IsUnique();
+
+                    b.ToTable("Companies", (string)null);
+                });
+
+            modelBuilder.Entity("Prismo.Core.Features.Telemetry.Domain.RouterTelemetry", b =>
+                {
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("ChannelOccupancy")
+                        .HasColumnType("double precision");
+
+                    b.Property<int>("ConnectedDevices")
+                        .HasColumnType("integer");
+
+                    b.Property<double>("PacketLossRate")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("RouterId")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("TimeStamp", "Id");
+
+                    b.HasIndex("RouterId");
+
+                    b.ToTable("RouterTelemtries", (string)null);
                 });
 #pragma warning restore 612, 618
         }
