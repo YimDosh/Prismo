@@ -42,6 +42,7 @@ app.UseHttpsRedirection();
 app.MapCreateCompany();
 app.MapGetCompanyById();
 app.MapGetCompanies();
+app.MapPatchUpdateCompany();
 app.Run();
 
 
