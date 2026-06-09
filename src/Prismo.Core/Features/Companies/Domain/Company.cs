@@ -24,7 +24,7 @@ public class Company
     }
     public void Deactivate() => IsActive = false;
     public void Activate() => IsActive = true;
-    public void UpadateName(string name) => Name = name;
-    public void UpadateNit(string nit) => Nit = nit;
+    public void UpdateName(string name) => Name = name;
+    public void UpdateNit(string nit) => Nit = nit;
     
 }
