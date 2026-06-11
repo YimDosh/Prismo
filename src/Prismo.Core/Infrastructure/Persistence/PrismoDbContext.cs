@@ -9,7 +9,7 @@ public class PrismoDbContext : DbContext
     public PrismoDbContext(DbContextOptions<PrismoDbContext> options) : base(options){}
 
     public DbSet<Company> Companies => Set<Company>();
-    public DbSet<RouterTelemetry> Telemetry => Set<RouterTelemetry>();
+    public DbSet<RouterTelemetry> RouetrTelemetry => Set<RouterTelemetry>();
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

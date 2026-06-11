@@ -16,7 +16,8 @@ public class RouterTelemetryConfiguration : IEntityTypeConfiguration<RouterTelem
             .HasMaxLength(50)
             .IsRequired();
 
-        builder.Property(t => t.ChannelOccupancy)
+        // Fixear la config
+        builder.Property(t => t.ChannelOccupancy5G)
             .IsRequired();
 
         builder.Property(t => t.PacketLossRate)
