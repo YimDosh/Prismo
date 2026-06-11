@@ -3,8 +3,8 @@ using Prismo.Api.Middleware;
 using Scalar.AspNetCore;
 using Prismo.Core.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using FluentValidation;
 using Prismo.Core.Infrastructure.Common.Behaviors;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,10 +38,10 @@ app.MapScalarApiReference();
 app.UseStatusCodePages(); // Formatea errores automáticos de .NET
 app.UseExceptionHandler();
 
+// Endpoints
 app.UseHttpsRedirection();
 app.MapCreateCompany();
 app.MapGetCompanyById();
 app.MapGetCompanies();
+app.MapPatchUpdateCompany();
 app.Run();
-
-
